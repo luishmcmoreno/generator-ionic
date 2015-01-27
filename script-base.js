@@ -13,9 +13,12 @@ var Generator = module.exports = function Generator() {
         this.appname = path.basename(process.cwd());
     }
     this.appname = this._.slugify(this._.humanize(this.appname));
-    this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
-    this.cameledName = this._.camelize(this.name);
+    this.scriptAppName = this._.classify(this.appname);
+    console.log(this.scriptAppName);
+    this.cameledName = this.name;
+    console.log(this.cameledName);
     this.classedName = this._.classify(this.name);
+    console.log(this.classedName);
     if (typeof this.env.options.appPath === 'undefined') {
         this.env.options.appPath = this.options.appPath;
         if (!this.env.options.appPath) {

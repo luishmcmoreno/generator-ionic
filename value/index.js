@@ -9,11 +9,11 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
+Generator.prototype.createServiceFiles = function createServiceFiles() {
   this.generateSourceAndTest(
-    'directive',
-    'spec/directive',
-    'directives',
+    'service/value',
+    'spec/service',
+    'services',
     this.options['skip-add'] || false
   );
 };

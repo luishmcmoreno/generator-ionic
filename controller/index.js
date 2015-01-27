@@ -1,21 +1,25 @@
 'use strict';
-var yeoman = require('yeoman-generator');
+var util = require('util');
+var ScriptBase = require('../script-base.js');
 
-module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.log('You called the Ionic subgenerator with the argument ' + this.name + '.');
 
-    this.argument('name', {
-      required: true,
-      type: String,
-      desc: 'The subgenerator name'
-    });
-  },
+var Generator = module.exports = function Generator() {
+  ScriptBase.apply(this, arguments);
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('somefile.js'),
-      this.destinationPath('somefile.js')
-    );
+  // if the controller name is suffixed with ctrl, remove the suffix
+  // if the controller name is just "ctrl," don't append/remove "ctrl"
+  if (this.name && this.name.toLowerCase() !== 'ctrl' && this.name.substr(-4).toLowerCase() === 'ctrl') {
+    this.name = this.name.slice(0, -4);
   }
-});
+};
+
+util.inherits(Generator, ScriptBase);
+
+Generator.prototype.createControllerFiles = function createControllerFiles() {
+  this.generateSourceAndTest(
+    'controller',
+    'spec/controller',
+    'controllers',
+    this.options['skip-add'] || false
+  );
+};

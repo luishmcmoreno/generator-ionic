@@ -1,21 +1,35 @@
 'use strict';
+var path = require('path');
+var util = require('util');
 var yeoman = require('yeoman-generator');
 
-module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.log('You called the Ionic subgenerator with the argument ' + this.name + '.');
+var Generator = module.exports = function Generator() {
+  yeoman.generators.NamedBase.apply(this, arguments);
 
-    this.argument('name', {
-      required: true,
-      type: String,
-      desc: 'The subgenerator name'
-    });
-  },
+  this.sourceRoot(path.join(__dirname, '../templates/common'));
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('somefile.js'),
-      this.destinationPath('somefile.js')
-    );
+  if (typeof this.env.options.appPath === 'undefined') {
+    this.env.options.appPath = this.options.appPath;
+
+    if (!this.env.options.appPath) {
+      try {
+        this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+      } catch (e) {}
+    }
+    this.env.options.appPath = this.env.options.appPath || 'app';
+    this.options.appPath = this.env.options.appPath;
   }
-});
+};
+
+util.inherits(Generator, yeoman.generators.NamedBase);
+
+Generator.prototype.createViewFiles = function createViewFiles() {
+  this.template(
+    'app/views/view.html',
+    path.join(
+      this.env.options.appPath,
+      'templates',
+      this.name.toLowerCase() + '.html'
+    )
+  );
+};

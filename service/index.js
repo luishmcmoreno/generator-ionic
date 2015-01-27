@@ -1,21 +1,19 @@
 'use strict';
-var yeoman = require('yeoman-generator');
+var util = require('util');
+var ScriptBase = require('../script-base.js');
 
-module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.log('You called the Ionic subgenerator with the argument ' + this.name + '.');
 
-    this.argument('name', {
-      required: true,
-      type: String,
-      desc: 'The subgenerator name'
-    });
-  },
+var Generator = module.exports = function Generator() {
+  ScriptBase.apply(this, arguments);
+};
 
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('somefile.js'),
-      this.destinationPath('somefile.js')
-    );
-  }
-});
+util.inherits(Generator, ScriptBase);
+
+Generator.prototype.createServiceFiles = function createServiceFiles() {
+  this.generateSourceAndTest(
+    'service/service',
+    'spec/service',
+    'services',
+    this.options['skip-add'] || false
+  );
+};
