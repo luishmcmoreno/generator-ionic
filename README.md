@@ -147,6 +147,111 @@ Launch the bundled [Ripple](http://ripple.incubator.apache.org/) emulator by fir
 
 For a Getting Started guide, FAQ, and helpful tips, please see the [documentation](docs/README.md).
 
+## Generators
+
+Available generators:
+
+* [ionic:controller](#controller)
+* [ionic:directive](#directive)
+* [ionic:filter](#filter)
+* [ionic:service](#service)
+* [ionic:provider](#service)
+* [ionic:factory](#service)
+* [ionic:value](#service)
+* [ionic:constant](#service)
+* [ionic:view](#view)
+
+**Note: Generators are to be run from the root directory of your app.**
+
+### Controller
+Generates a controller in `app/scripts/controllers`.
+
+Example:
+```bash
+yo ionic:controller user
+```
+
+Produces `app/scripts/controllers/user.js`:
+```javascript
+angular.module('MyApp').controller('UserCtrl', function ($scope) {
+  // ...
+});
+```
+### Directive
+Generates a directive in `app/scripts/directives`.
+
+Example:
+```bash
+yo ionic:directive myDirective
+```
+
+Produces `app/scripts/directives/myDirective.js`:
+```javascript
+angular.module('MyApp').directive('myDirective', function () {
+  return {
+    template: '<div></div>',
+    restrict: 'E',
+    link: function postLink(scope, element, attrs) {
+      element.text('this is the myDirective directive');
+    }
+  };
+});
+```
+
+### Filter
+Generates a filter in `app/scripts/filters`.
+
+Example:
+```bash
+yo ionic:filter myFilter
+```
+
+Produces `app/scripts/filters/myFilter.js`:
+```javascript
+angular.module('MyApp').filter('myFilter', function () {
+  return function (input) {
+    return 'myFilter filter:' + input;
+  };
+});
+```
+
+### View
+Generates an HTML view file in `app/views`.
+
+Example:
+```bash
+yo ionic:view user
+```
+
+Produces `app/views/user.html`:
+```html
+<ion-view title="my-view">
+  <ion-content class="has-header">
+    <h1>my-view</h1>
+
+  </ion-content>
+</ion-view>
+```
+
+### Service
+Generates an AngularJS service.
+
+Example:
+```bash
+yo ionic:service myService
+```
+
+Produces `app/scripts/services/myService.js`:
+```javascript
+angular.module('MyApp').service('myService', function () {
+  // ...
+});
+```
+
+You can also do `yo ionic:factory`, `yo ionic:provider`, `yo ionic:value`, and `yo ionic:constant` for other types of services.
+
+
+
 ## Contribute
 
 See the [contributing docs](https://github.com/diegonetto/generator-ionic/blob/master/contributing.md).
