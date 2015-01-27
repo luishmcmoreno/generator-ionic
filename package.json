@@ -1,6 +1,6 @@
 {
   "name": "generator-ionic",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A generator for the Ionic Framework",
   "keywords": [
     "yeoman-generator",
@@ -54,5 +54,15 @@
     {
       "type": "MIT"
     }
+  ],
+  "files": [
+    "controller",
+    "directive",
+    "filter",
+    "state",
+    "service",
+    "factory",
+    "constant",
+    "view"
   ]
 }
